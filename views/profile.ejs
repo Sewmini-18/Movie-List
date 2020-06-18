@@ -1,0 +1,48 @@
+<%- include ('header');%>
+
+<center>
+  <div class="container">
+    <div class="card mt-5 text-left border-dark" style="width:60%;">
+      <div class="card-header bg-transparent border-dark">
+        <div class="row ">
+          <div class="col-md-4 col-lg">
+            <img src="https://www.pngitem.com/pimgs/m/78-786293_1240-x-1240-0-avatar-profile-icon-png.png" style="width: 100px;height:100px" class="rounded-circle" alt="...">
+          </div>
+          <div class="col-md-8">
+            <h3><%=data[0].name%></h3>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <span>E-mail : </span>
+          </div>
+          <div class="col-md-8">
+            <span><%=data[0].email%></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            Date of Birth :
+          </div>
+          <div class="col-md-8">
+            <span><%=data[0].dob%></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent border-dark">
+        <a href="/home/dashboard" class="btn btn-sm btn-success mt-2"> << Go Back to Home </a>
+
+        <a href="/home/profile" class="btn btn-sm btn-warning mt-2"> Edit profile >> </a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</center>
+<%- include ('footer'); %>

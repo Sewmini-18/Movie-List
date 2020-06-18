@@ -1,0 +1,131 @@
+<title>Movie Details</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<style>
+   tr {
+       font-weight:bold;
+       
+   }
+
+   tr th{
+       color: #483D8B;
+       width: 40%;
+       
+   }
+
+   div .sr, .buttn{
+       padding-left: 5%;
+       padding-right: 5%;
+   }
+
+h4{
+  color:#1E90FF;
+}
+
+ .container {
+    margin-top: 2%;
+    margin-bottom: 4%;
+  }
+  legend{color:#4682B4}
+</style>
+<div>
+   
+    <div class="container">
+         
+       
+        <legend>Movie Details....</legend>
+<center>
+<div class="card bg-light w-75 " >
+  <div class="card-header"><h4 class="text-uppercase"><%=details.mname;%></h4></div>
+  <div class="card-body text-left ">
+ <div class="sr">
+            <table class="table table-borderless">
+
+  <tbody>
+    <tr class="border-bottom">
+      <th scope="row" ><span>Released Year</span></th>
+      <td><%=details.ryear;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">Movie Genre</th>
+      <td><%=details.genre;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">Movie category</th>
+      <td><%=details.category;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">IMDB Rate ( <span class="fa fa-star-o"></span>/ 10 ) </th>
+      <td><%=details.imdb;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">My Rate ( <span class="fa fa-heart-o"></span>/ 10 )</th>
+      <td><%=details.myrate;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">Watched Times</th>
+      <td><%=details.wtimes;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">Watched Year at First</th>
+      <td><%=details.wyear;%></td>
+    </tr>
+    <tr class="border-bottom">
+      <th scope="row">URL</th>
+      <td><a href="<%=details.url;%>"><%=details.url;%></a></td>
+
+    </tr>
+     <tr class="border-bottom">
+      <th scope="row">Availability of Your Collection</th>
+      <% if(details.inlist!=0) {%>
+      <td>Yes</td>
+      <% } else { %>
+      <td>No</td>
+      <% } %>
+
+      
+
+    </tr>
+     <tr class="border-bottom">
+      <th scope="row">Notes</th>
+      <td><%=details.notes;%></td>
+    </tr>
+    
+   
+  </tbody>
+</table>
+ </div>
+
+   <div class="buttn"><center>
+<a href="/home/list/editmovie/<%=details.mid;%>" class="btn btn-warning">Edit&nbsp;&nbsp;&nbsp;<span
+                      class="fa fa-pencil-square"></span></a>
+<a href="/home/list/" class="btn btn-success">Back&nbsp;&nbsp; <span
+                      class="fa fa-mail-reply"></span></a>
+                      </center>
+   </div>
+  </div>
+</div>
+</center>
+
+
+
+
+    </div>
+</div>
+

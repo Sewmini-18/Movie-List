@@ -1,0 +1,307 @@
+<title>Add Movie</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+  #success_message {
+    display: none;
+  }
+
+  textarea {
+    max-width: 450px;
+
+    max-height: 150px;
+
+  }
+
+  .container {
+    margin-top: 4%;
+    margin-bottom: 4%;
+  }
+
+h3, i{
+  	color:#008080;
+}
+
+.cont {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: lighter;
+}
+
+/* Hide the browser's default radio button */
+.cont input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  height: 15px;
+  width: 15px;
+  background-color:#E0FFFF;
+  border-radius: 50%;
+  border: 0.5px solid	#008080;
+}
+
+/* On mouse-over, add a grey background color */
+.cont:hover input ~ .checkmark {
+  background-color:white;
+}
+
+/* When the radio button is checked, add a blue background */
+.cont input:checked ~ .checkmark {
+  background-color: 	#008080;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.cont input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.cont .checkmark:after {
+ 	top: 3.5px;
+	left: 3.5px;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #FAEBD7;
+}
+
+</style>
+<div>
+
+  <div class="container mt-5">
+   
+    <form class="well form-horizontal" method="post" action="/home/list/addmovie" id="contact_form">
+      <% if (message.length > 0) { %>
+        <div class="alert alert-success col-sm-12"><%= message; %></div>
+<% } %>
+<div id="signupalert" style="display:none" class="alert alert-danger">
+<p>Error:</p>
+<span></span>
+</div> 
+      <fieldset>
+        
+        <!-- Form Name -->
+        <h4>Please Add Your New Movie!</h4>
+
+        <!-- Movie Name Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="mname">Movie Name</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-film"></i></span>
+              <input name="mname" placeholder="Movie Name" class="form-control" type="text" id="mname" minlength="2"
+                required>
+            </div>
+          </div>
+        </div>
+
+        <!--Year date/Num Input-->
+        <div class="form-group">
+
+          <label class="col-md-4 control-label" for="ryear">Release Year</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="	fa fa-calendar"></i></span>
+              <input name="ryear" class="form-control" type="number" placeholder="Released Year" min="1990" max="2025"
+                id="ryear">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="actors">Actor(s)</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="	fa fa-group"></i></span>
+              <input name="actors" placeholder="Actors" class="form-control" type="text" id="actors" minlength="3">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="actress">Actress(s)</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input name="actress" placeholder="Actresses" class="form-control" type="text" id="actress" minlength="3">
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="mgenre">Movie Genre</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-file-video-o"></i></span>
+              <input name="genre" placeholder="Genre" class="form-control" type="text" id="genre">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="mcategory">Movie Category</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-tasks"></i></span>
+              <input name="category" placeholder="Category" class="form-control" type="text" id="category">
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="imdbrate">Imdb Rate</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-star-half-empty"></i></span>
+              <input name="imdb" placeholder="IMDB/10.0" class="form-control" type="text" id="imdb">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="myrate">My Rate</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-thumbs-up"></i></span>
+              <input name="myrate" placeholder="Rate/10.0" class="form-control" type="text" id="myrate">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+
+          <label class="col-md-4 control-label" for="times">No of Time did you watch</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i
+                  class="glyphicon glyphicon-homeglyphicon glyphicon-question-sign"></i></span>
+              <input name="wtimes" class="form-control" type="number" placeholder="No of times" min="0" max="30"
+                id="wtimes">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+
+          <label class="col-md-4 control-label" for="wyear">Which year did you watch it at first</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
+              <input name="wyear" class="form-control" type="number" placeholder="Watched Year" min="1990" max="2025"
+                id="wyear">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="wurl">URL of Movie Trailer</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="	fa fa-link"></i></span>
+              <input name="url" placeholder="Add a URL" class="form-control" type="text" id="url">
+            </div>
+          </div>
+        </div>
+
+        <!-- radio checks -->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Is it in your movie collection on your any device/platform?</label>
+          <div class="col-md-4">
+            <label class="cont">Yes
+              <input type="radio" name="inlist" value="1" >
+              <span class="checkmark"></span>
+            </label>
+            <label class="cont">No
+              <input type="radio" name="inlist" value="0">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+
+
+        <!-- Text area -->
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="notes">Special Note</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+              <textarea class="form-control responsive" id="notes" name="notes" placeholder="Your Notes"
+                maxlength="250"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success message -->
+        <div class="alert alert-success" role="alert" id="success_message">Success <i
+            class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"></label>
+          <div class="col-md-4">
+            <center>
+
+              <button type="submit" class="btn btn-info">Save &nbsp;&nbsp;<span class="	fa fa-rocket"></span></button>
+              <button type="reset" class="btn btn-danger">Clear &nbsp;&nbsp;<span class="fa fa-times"></span></button>
+              <a href="/home/list/"><button type="button" class="btn btn-success">My List &nbsp;&nbsp;<span
+                    class="fa fa-check-square"></span></button></a>
+            </center>
+
+          </div>
+
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+
+</div>
