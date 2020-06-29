@@ -12,7 +12,7 @@ let connection = mysql.createConnection({
               host     : 'localhost',
               user     : 'root',
               password : '',
-              database : 'test'
+              database : 'movielist'
             });
  
 connection.connect();
@@ -46,6 +46,7 @@ app.get('/home/dashboard', user.dashboard);//call for dashboard page after login
 app.get('/home/logout', user.logout);//call for logout
 app.get('/home/profile',user.profile);//to render users profile
 app.get('/home/list',user.list);//to render users movie list
+app.get('/home/list/sort',user.sort);//to render users movie list sort
 app.get('/home/wishlist',user.wishlist);//to render users wishlist
 app.get('/home/list/details/:id',user.details);//to render users movie details
 app.get('/home/list/deletemovie/:id',user.deletemovie);//delete

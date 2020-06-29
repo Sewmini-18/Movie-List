@@ -8,13 +8,15 @@ exports.signup = function(req, res){
        var dob= post.dob;
        var mail= post.mail;
  
-       var sql = "INSERT INTO `users2`(`name`,`dob`,`email`, `password`) VALUES ('" + name + "','" + dob + "','" + mail + "','" + pass + "')";
+       var sql = "INSERT INTO `m_users`(`name`,`dob`,`email`, `password`) VALUES ('" + name + "','" + dob + "','" + mail + "','" + pass + "')";
  
        var query = db.query(sql, function(err, result) {
  
           message = "Account created succesfully!";
           res.render('signup.ejs',{message: message});
           console.log("succesfully Created Your Account!");
+         // res.redirect('/login');
+          
        });
  
     } else {
@@ -33,7 +35,7 @@ exports.signup = function(req, res){
       var mail= post.mail;
       var pass= post.password;
      
-      var sql="SELECT id, name, dob, email FROM `users2` WHERE `email`='"+mail+"' and password = '"+pass+"'";                           
+      var sql="SELECT id, name, dob, email FROM `m_users` WHERE `email`='"+mail+"' and password = '"+pass+"'";                           
       db.query(sql, function(err, results){      
          if(results.length){
             req.session.userId = results[0].id;
@@ -75,7 +77,7 @@ exports.signup = function(req, res){
       return;
    }
 
-   var sql="SELECT * FROM `users2` WHERE `id`='"+userId+"'";
+   var sql="SELECT * FROM `m_users` WHERE `id`='"+userId+"'";
 
    db.query(sql, function(err, results){
       res.render('dashboard.ejs', {user:user});    
@@ -87,17 +89,22 @@ exports.signup = function(req, res){
  exports.list = function(req, res){
  
    var userId = req.session.userId;
+ ;
    if(userId == null){
       res.redirect("/login");
       return;
    }
 
-   var sql="SELECT * FROM `watchlist2` WHERE `userid`='"+userId+"'" ;          
-   db.query(sql, function(err, data){  
-      console.log("succesfully goes to list");
-      res.render('list.ejs',{watchlist2:data});
-     
-   });
+
+      var sql="SELECT * FROM `watchedlist` WHERE `userid`='"+userId+"'" ;          
+      db.query(sql, function(err, data){  
+         console.log("succesfully goes to list");
+         res.render('list.ejs',{watchlist2:data,x:1});
+        
+      });
+   
+
+  
 };
 
  //---------------------------------------------addmovie page call------------------------------------------------------
@@ -127,7 +134,7 @@ exports.signup = function(req, res){
          var userId = userId;
          
    
-         var sql = "INSERT INTO `watchlist2`(`userid`,`mname`,`ryear`,`actors`,`actress`,`genre`, `category`,`imdb`,`myrate`,`wtimes`,`wyear`,`url`,`inlist`,`notes` ) VALUES ('" + userId + "','" + mname + "','" + ryear + "','" + actors + "','" + actress + "','" + genre + "','" + category + "','" + imdb + "','" + myrate + "','" + wtimes + "','" +wyear  + "','" + url + "','" + inlist + "','" + notes + "')";
+         var sql = "INSERT INTO `watchedlist`(`userid`,`mname`,`ryear`,`actors`,`actress`,`genre`, `category`,`imdb`,`myrate`,`wtimes`,`wyear`,`url`,`inlist`,`notes` ) VALUES ('" + userId + "','" + mname + "','" + ryear + "','" + actors + "','" + actress + "','" + genre + "','" + category + "','" + imdb + "','" + myrate + "','" + wtimes + "','" +wyear  + "','" + url + "','" + inlist + "','" + notes + "')";
    
          var query = db.query(sql, function(err, result) {
    
@@ -156,7 +163,7 @@ exports.signup = function(req, res){
        return;
     }
  
-    var sql="SELECT * FROM `users2` WHERE `id`='"+userId+"'";          
+    var sql="SELECT * FROM `m_users` WHERE `id`='"+userId+"'";          
     db.query(sql, function(err, result){  
        res.render('profile.ejs',{data:result});
     });
@@ -190,7 +197,7 @@ exports.signup = function(req, res){
        return;
     }
  
-    var sql="SELECT * FROM `users2` WHERE `id`='"+userId+"'";
+    var sql="SELECT * FROM `m_users` WHERE `id`='"+userId+"'";
     db.query(sql, function(err, data){
        res.render('edituser.ejs',{data:data});
     });
@@ -205,7 +212,7 @@ exports.signup = function(req, res){
       return;
    }
 
-   var sql="SELECT * FROM `watchlist2` WHERE `mid`= ? and userid=?";
+   var sql="SELECT * FROM `watchedlist` WHERE `mid`= ? and userid=?";
    db.query(sql,[id,userId], function(err, data){
       res.render('editmovie.ejs',{editData:data[0]});
       console.log("Edit "+id);
@@ -240,7 +247,7 @@ exports.signup = function(req, res){
          var notes = post.notes;
          var userId = userId;
 
-   var sql="UPDATE watchlist2 SET mname=?, ryear=?, actors=?, actress=?, genre=?, category=?, imdb=?, myrate=?, wtimes=?, wyear=?, url=?, inlist=?, notes=?   WHERE mid =? and userid=?";
+   var sql="UPDATE watchedlist SET mname=?, ryear=?, actors=?, actress=?, genre=?, category=?, imdb=?, myrate=?, wtimes=?, wyear=?, url=?, inlist=?, notes=?   WHERE mid =? and userid=?";
    db.query(sql,[mname,ryear,actors,actress,genre,category,imdb,myrate,wtimes,wyear,url,inlist,notes,id,userId], function(err, data){
      
       console.log("updated movie "+id);
@@ -258,7 +265,7 @@ exports.signup = function(req, res){
       return;
    }
 
-   var sql="SELECT * FROM `watchlist2` WHERE `mid`= ? and userid=?";
+   var sql="SELECT * FROM `watchedlist` WHERE `mid`= ? and userid=?";
    db.query(sql,[id,userId], function(err, data){
       res.render('details.ejs',{details:data[0]});
       console.log("details "+id);
@@ -277,10 +284,38 @@ exports.signup = function(req, res){
       return;
    }
 
-   var sql="DELETE FROM `watchlist2` WHERE `mid`=? and userid=?";
+   var sql="DELETE FROM `watchedlist` WHERE `mid`=? and userid=?";
    db.query(sql,[id,userId], function(err, results){
       console.log("deleted" + id);
       res.redirect("/home/list");
    });
 };
+
+
+ //--------------------------------- details sort list after login----------------------------------
+ exports.sort=function(req,res,next){
+   var id = req.params.id;
+ 
+   var userId = req.session.userId;
+   if(userId == null){
+      res.redirect("/login");
+      return;
+   }
+  
+      var sql="SELECT * FROM `watchedlist` WHERE userid=?  ORDER BY `mid` DESC";
+      db.query(sql,[userId], function(err, data){
+         console.log("listed");
+         res.render('list.ejs',{watchlist2:data,x:0});
+      });
+   
+
+  
+
+   
+};
+
+
+
+ 
+
  
